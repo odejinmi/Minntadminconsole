@@ -18,9 +18,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(
-      nav.map((g) => [g.label, isGroupActive(g, pathname)]),
-    ),
+    Object.fromEntries(nav.map((g) => [g.label, isGroupActive(g, pathname)])),
   );
 
   const toggleGroup = (label: string) =>
@@ -52,12 +50,12 @@ export function Sidebar() {
           </button>
         ) : (
           <>
-            <Logo className="flex-1" />
+            <Logo />
             <button
               type="button"
               onClick={() => setCollapsed(true)}
               aria-label="Collapse sidebar"
-              className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+              className="ml-auto grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
             >
               <PanelLeft className="size-4" />
             </button>
@@ -135,27 +133,39 @@ export function Sidebar() {
                   )}
                 </button>
 
-                {!collapsed && open && group.items && (
-                  <ul className="mt-1 space-y-0.5 pl-7">
-                    {group.items.map((item) => {
-                      const itemActive = pathname.startsWith(item.href);
-                      return (
-                        <li key={item.href}>
-                          <Link
-                            href={item.href}
-                            className={cn(
-                              "relative flex items-center rounded-md py-1.5 pl-3 text-sm transition-colors",
-                              itemActive
-                                ? "font-medium text-green-700 before:absolute before:-left-1 before:top-1/2 before:h-4 before:-translate-y-1/2 before:rounded-full before:border-l-2 before:border-green-600"
-                                : "text-muted-foreground hover:text-sidebar-foreground",
-                            )}
-                          >
-                            {item.label}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                {!collapsed && group.items && (
+                  <div
+                    className={cn(
+                      "grid transition-[grid-template-rows,opacity] duration-200 ease-in-out",
+                      open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                    )}
+                  >
+                    <div
+                      className="overflow-hidden"
+                      {...(!open && { inert: true })}
+                    >
+                      <ul className="relative mt-1 ml-5 space-y-0.5 border-l border-sidebar-border pl-4">
+                        {group.items.map((item) => {
+                          const itemActive = pathname.startsWith(item.href);
+                          return (
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                className={cn(
+                                  "relative flex items-center rounded-md py-2 pl-3 text-sm transition-colors",
+                                  itemActive
+                                    ? "font-medium text-green-700 before:absolute before:-left-4 before:top-1 before:bottom-1 before:w-0.5 before:rounded-full before:bg-green-600"
+                                    : "text-muted-foreground hover:text-sidebar-foreground",
+                                )}
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
                 )}
               </li>
             );
