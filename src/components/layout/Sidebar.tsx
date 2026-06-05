@@ -40,15 +40,29 @@ export function Sidebar() {
           collapsed && "justify-center px-0",
         )}
       >
-        {!collapsed && <Logo className="flex-1" />}
-        <button
-          type="button"
-          onClick={() => setCollapsed((c) => !c)}
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
-        >
-          <PanelLeft className="size-4" />
-        </button>
+        {collapsed ? (
+          <button
+            type="button"
+            onClick={() => setCollapsed(false)}
+            aria-label="Expand sidebar"
+            className="group relative grid size-9 place-items-center rounded-md transition-colors hover:bg-sidebar-accent"
+          >
+            <Logo markOnly className="group-hover:opacity-0" />
+            <PanelLeft className="absolute size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+          </button>
+        ) : (
+          <>
+            <Logo className="flex-1" />
+            <button
+              type="button"
+              onClick={() => setCollapsed(true)}
+              aria-label="Collapse sidebar"
+              className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+            >
+              <PanelLeft className="size-4" />
+            </button>
+          </>
+        )}
       </div>
 
       {/* Nav */}
