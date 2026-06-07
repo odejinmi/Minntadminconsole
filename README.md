@@ -11,13 +11,13 @@ pnpm install
 pnpm dev
 ```
 
-The app runs on [http://localhost:4086](http://localhost:4086).
+The app runs on [http://localhost:5085](http://localhost:5085).
 
 ## Scripts
 
 | Script        | Description                          |
 | ------------- | ------------------------------------ |
-| `pnpm dev`    | Start the dev server (port 4086)     |
+| `pnpm dev`    | Start the dev server (port 5085)     |
 | `pnpm build`  | Production build                     |
 | `pnpm start`  | Serve the production build           |
 | `pnpm lint`   | Run ESLint                           |

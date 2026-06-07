@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Bricolage_Grotesque, Geist_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import { AuthProvider } from "@/lib/auth/auth-context";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
 });
 
@@ -13,8 +22,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Admin Console",
-  description: "Minnt admin console",
+  title: "minnt · Admin Console",
+  description: "minnt admin console",
 };
 
 export default function RootLayout({
@@ -25,9 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${bricolage.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        {children}
+        <NextTopLoader color="#9FE870" height={3} showSpinner={false} />
+        <ReactQueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ReactQueryProvider>
+        <Toaster />
       </body>
     </html>
   );
