@@ -66,8 +66,6 @@ export const nav: NavGroup[] = [
       { label: "Command Center", href: "/operations/command-center" },
       { label: "Finance", href: "/operations/finance" },
       { label: "Marketing", href: "/operations/marketing" },
-      { label: "APIs", href: "/operations/apis" },
-      { label: "Maintenance", href: "/operations/maintenance" },
     ],
   },
 ];

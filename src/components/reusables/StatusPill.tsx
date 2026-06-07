@@ -16,11 +16,14 @@ const SUCCESS_STATES = new Set([
   "resolved",
   "active",
   "completed",
+  "confirmed",
+  "delivered",
 ]);
 const WARNING_STATES = new Set([
   "pending",
   "processing",
   "paused",
+  "running",
   "in-view",
   "in review",
 ]);
@@ -31,6 +34,7 @@ const DANGER_STATES = new Set([
   "frozen",
   "declined",
   "cancelled",
+  "canceled",
 ]);
 
 /** Maps a free-form status label to a semantic tone. */
