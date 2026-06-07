@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Bricolage_Grotesque, Geist_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import { AuthProvider } from "@/lib/auth/auth-context";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "minnt — Admin Console",
+  title: "minnt · Admin Console",
   description: "minnt admin console",
 };
 
@@ -32,7 +36,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${bricolage.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        {children}
+        <NextTopLoader color="#9FE870" height={3} showSpinner={false} />
+        <ReactQueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ReactQueryProvider>
+        <Toaster />
       </body>
     </html>
   );
