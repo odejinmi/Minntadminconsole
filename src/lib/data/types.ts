@@ -346,3 +346,90 @@ export type FeeConfigRecord = {
   feeInput: string;
   enabled: boolean;
 };
+
+/* ---- Commerce ---- */
+
+export enum BookingStatus {
+  Confirmed = "Confirmed",
+  Pending = "Pending",
+  Canceled = "Canceled",
+}
+
+export enum EventStatus {
+  Confirmed = "Confirmed",
+  Pending = "Pending",
+  Failed = "Failed",
+}
+
+export type RewardRecord = {
+  id: string;
+  userName: string;
+  userEmail: string;
+  amountLabel: string;
+  paymentType: string;
+  status: TransactionStatus;
+  date: string;
+};
+
+export type InvoiceRecord = {
+  id: string;
+  userName: string;
+  userEmail: string;
+  amountLabel: string;
+  status: TransactionStatus;
+  date: string;
+};
+
+export type Vendor = {
+  id: string;
+  name: string;
+  category: string;
+  orders: string;
+  gmvLabel: string;
+  commissionLabel: string;
+  status: UserStatus;
+};
+
+export type FlightBooking = {
+  id: string;
+  customer: string;
+  from: string;
+  to: string;
+  airline: string;
+  amountLabel: string;
+  status: BookingStatus;
+};
+
+export type EventTicket = {
+  id: string;
+  customer: string;
+  event: string;
+  qty: number;
+  amountLabel: string;
+  status: EventStatus;
+};
+
+/* ---- Operations ---- */
+
+export type ProfitLossPoint = {
+  month: string;
+  revenue: number;
+  cost: number;
+  profit: number;
+};
+
+export enum CampaignStatus {
+  Delivered = "Delivered",
+  Running = "Running",
+  Draft = "Draft",
+}
+
+export type Campaign = {
+  id: string;
+  name: string;
+  channel: string;
+  audience: string;
+  frequency: string;
+  status: CampaignStatus;
+  date: string;
+};
