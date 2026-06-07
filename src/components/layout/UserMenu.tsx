@@ -18,6 +18,7 @@ type UserMenuProps = {
   email: string;
   accountName: string;
   collapsed?: boolean;
+  onLogout?: () => void;
 };
 
 export function UserMenu({
@@ -26,7 +27,8 @@ export function UserMenu({
   email,
   accountName,
   collapsed = false,
-}: UserMenuProps) {
+  onLogout,
+}: Readonly<UserMenuProps>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -80,7 +82,7 @@ export function UserMenu({
           Settings
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="destructive" onClick={onLogout}>
           <LogOut className="size-4" />
           Logout
         </DropdownMenuItem>

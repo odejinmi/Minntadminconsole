@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { UserStatus } from "@/lib/data/types";
 
 type BalanceCardProps = {
   label: string;
@@ -6,13 +7,19 @@ type BalanceCardProps = {
   amount: number;
   /** Currency symbol, e.g. "₦" or "$" */
   currency?: string;
-  status?: string;
+  status?: UserStatus;
   /** Render with the brand-green highlight border (selected/primary balance). */
   highlighted?: boolean;
   className?: string;
 };
 
-function formatAmount(amount: number) {
+const STATUS_PILL: Record<UserStatus, string> = {
+  [UserStatus.Active]: "bg-success-muted text-success",
+  [UserStatus.Inactive]: "bg-muted text-muted-foreground",
+  [UserStatus.Frozen]: "bg-danger-muted text-danger",
+};
+
+function formatAmount(amount: number): { whole: string; fraction: string } {
   const [whole, fraction = "00"] = amount.toFixed(2).split(".");
   return {
     whole: whole.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
@@ -24,10 +31,10 @@ export function BalanceCard({
   label,
   amount,
   currency = "₦",
-  status = "Active",
+  status = UserStatus.Active,
   highlighted = false,
   className,
-}: BalanceCardProps) {
+}: Readonly<BalanceCardProps>): React.ReactElement {
   const { whole, fraction } = formatAmount(amount);
 
   return (
@@ -50,7 +57,12 @@ export function BalanceCard({
           </span>
         </p>
       </div>
-      <span className="shrink-0 rounded-full bg-success-muted px-3 py-1 text-xs font-medium text-success">
+      <span
+        className={cn(
+          "shrink-0 rounded-full px-3 py-1 text-xs font-medium",
+          STATUS_PILL[status],
+        )}
+      >
         {status}
       </span>
     </div>

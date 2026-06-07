@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ChevronDown, PanelLeft } from "lucide-react";
 import { nav, type NavGroup } from "@/lib/nav";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth/auth-context";
 import { Logo } from "./Logo";
 import { UserMenu } from "./UserMenu";
 
@@ -16,7 +17,14 @@ function isGroupActive(group: NavGroup, pathname: string): boolean {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
+
+  const handleLogout = (): void => {
+    logout();
+    router.replace("/login");
+  };
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(nav.map((g) => [g.label, isGroupActive(g, pathname)])),
   );
@@ -90,7 +98,7 @@ export function Sidebar() {
                     <Icon
                       className={cn(
                         "size-4 shrink-0",
-                        leafActive && "text-green-700",
+                        leafActive && "text-primary",
                       )}
                     />
                     {!collapsed && group.label}
@@ -117,7 +125,7 @@ export function Sidebar() {
                   <Icon
                     className={cn(
                       "size-4 shrink-0",
-                      active && "text-green-700",
+                      active && "text-primary",
                     )}
                   />
                   {!collapsed && (
@@ -154,7 +162,7 @@ export function Sidebar() {
                                 className={cn(
                                   "relative flex items-center rounded-md py-2 pl-3 text-sm transition-colors",
                                   itemActive
-                                    ? "font-medium text-green-700 before:absolute before:-left-4 before:top-1 before:bottom-1 before:w-0.5 before:rounded-full before:bg-green-600"
+                                    ? "font-medium text-primary before:absolute before:-left-4 before:top-1 before:bottom-1 before:w-0.5 before:rounded-full before:bg-primary"
                                     : "text-muted-foreground hover:text-sidebar-foreground",
                                 )}
                               >
@@ -176,11 +184,12 @@ export function Sidebar() {
       {/* Footer */}
       <div className="border-t border-sidebar-border p-3">
         <UserMenu
-          name="Akanji Joseph"
-          role="Super Admin"
-          accountName="Acme"
-          email="acme@email.com"
+          name={user?.name ?? "Akanji Joseph"}
+          role={user?.role ?? "Super Admin"}
+          accountName={user?.accountName ?? "Minnt"}
+          email={user?.email ?? "admin@minnt.co"}
           collapsed={collapsed}
+          onLogout={handleLogout}
         />
       </div>
     </aside>

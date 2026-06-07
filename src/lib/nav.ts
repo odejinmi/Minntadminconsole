@@ -28,7 +28,6 @@ export const nav: NavGroup[] = [
     items: [
       { label: "Users", href: "/customers/users" },
       { label: "KYC & Compliance", href: "/customers/kyc" },
-      { label: "Disputes", href: "/customers/disputes" },
       { label: "Refunds", href: "/customers/refunds" },
     ],
   },
@@ -47,10 +46,7 @@ export const nav: NavGroup[] = [
   {
     label: "Manage Fees",
     icon: ReceiptText,
-    items: [
-      { label: "Bill payment", href: "/manage-fees/bill-payment" },
-      { label: "Other Fees", href: "/manage-fees/other-fees" },
-    ],
+    items: [{ label: "Configure fees", href: "/manage-fees/configure-fees" }],
   },
   {
     label: "Commerce",
