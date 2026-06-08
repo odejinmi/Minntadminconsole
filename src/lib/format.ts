@@ -46,6 +46,16 @@ function trim(value: number): string {
   return value.toFixed(1).replace(/\.0$/, "");
 }
 
+/** Up to two uppercase initials from a name, e.g. "Adaeze Okafor" -> "AO". */
+export function initials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
 /** ISO date -> "Mar 12, 2024". */
 export function formatDate(iso: string): string {
   const date = new Date(iso);

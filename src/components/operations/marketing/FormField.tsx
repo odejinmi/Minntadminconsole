@@ -18,7 +18,7 @@ export function FormField({
 }>): React.ReactElement {
   return (
     <div className="space-y-2">
-      <Label htmlFor={htmlFor} className="text-muted-foreground">
+      <Label htmlFor={htmlFor} className="text-muted-foreground text-sm">
         {label}
       </Label>
       {children}

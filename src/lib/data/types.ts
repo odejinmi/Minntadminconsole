@@ -433,3 +433,52 @@ export type Campaign = {
   status: CampaignStatus;
   date: string;
 };
+
+/* ---- Operations: Team, Roles & Audit ---- */
+
+export enum TeamSegment {
+  Members = "Team Members",
+  Roles = "Roles & Permission",
+}
+
+export enum TeamMemberStatus {
+  Active = "Active",
+  Inactive = "Inactive",
+  Invited = "Invited",
+}
+
+export type TeamMember = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  lastActive: string;
+  status: TeamMemberStatus;
+  twoFactor: boolean;
+};
+
+export type Role = {
+  id: string;
+  name: string;
+  description: string;
+  memberCount: number;
+  permissions: string[];
+};
+
+export enum AuditSeverity {
+  Info = "Info",
+  Warning = "Warning",
+  Critical = "Critical",
+}
+
+export type AuditLogEntry = {
+  id: string;
+  actorName: string;
+  actorEmail: string;
+  action: string;
+  target: string;
+  ip: string;
+  time: string;
+  severity: AuditSeverity;
+  category: TeamSegment;
+};
